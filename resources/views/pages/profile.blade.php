@@ -13,8 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <p><a href="/profile">Profile page</a></p>
-                    {{ __('You are logged in!') }}
+                    <ul class="list-groups">
+                        <li class="list-group-item"><label>Name : </label> {{ $user->name}}</li>
+                        <li class="list-group-item"><label>Email : </label> {{ $user->email}}</li>
+                        <li class="list-group-item"><label>User Role : </label> {{ $user->user_role}}</li>
+                    </ul>
+                    {{ __('This is profile page') }}
                 </div>
             </div>
         </div>

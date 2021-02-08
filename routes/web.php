@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'PagesController@home');
-Route::get('/about', 'PagesController@about');
-Route::get('/all', 'PagesController@allitems');
+// Route::get('/about', 'PagesController@about');
+// Route::get('/all', 'PagesController@allitems');
+Route::get('/profile', 'UsersController@index');
 
 Auth::routes();
 
