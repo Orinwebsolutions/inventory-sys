@@ -4,7 +4,9 @@
     <h1 class="h2">Users</h1>
 @endsection
 
+{{-- ToDo adding common error messages and success messages --}}
 @section('content')
+
 @foreach ($users as $user)
     <div class="card mt-3">
         <div class="card-body">
@@ -38,4 +40,5 @@
         </div>
     </div>
 @endforeach
+
 @endsection
