@@ -1,6 +1,10 @@
 {{-- @extends('layouts.app') --}}
 @extends('layouts.master')
 
+@section('title')
+    <h1 class="h2">Profile</h1>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

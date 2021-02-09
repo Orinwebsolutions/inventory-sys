@@ -1,10 +1,8 @@
 @extends('layouts.master')
 
+@section('title')
+    <h1 class="h2">Dashboard</h1>
+@endsection
 @section('content')
-<div class="container">
-    <h1>Content</h1>
-
-</div>
-
-
-@stop
+    
+@endsection
