@@ -1,6 +1,7 @@
-@extends('layout')
+{{-- @extends('layout') --}}
+@extends('layouts.master')
 
 @section('content')
-<h1>About</h1>
+<div id="example"></div>
 
 @stop

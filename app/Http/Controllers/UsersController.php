@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -22,8 +23,6 @@ class UsersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // $userId = $user->id;
-        // dd($user);
         return view('pages.profile', compact('user'));
     }
 
@@ -79,7 +78,16 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($id == auth()->id()){
+            return back();
+        }
+
+        $user = User::find($id);
+        // dd($user);
+        $user->user_role = $request['user_role'];
+        $user->save();
+        return back();
+
     }
 
     /**
@@ -91,5 +99,15 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showusers()
+    {
+        if (auth()->user()->user_role == 'admin'){
+            $users = User::where('id', '!=', auth()->id())->get();
+            // $user = Auth::user();
+            return view('pages.admin.users', compact('users'));
+        }
+
     }
 }
