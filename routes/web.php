@@ -17,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', 'PagesController@home');
-// Route::get('/about', 'PagesController@about');
-// Route::get('/all', 'PagesController@allitems');
+Route::get('/', 'PagesController@index');
 Route::get('/profile', 'UsersController@index');
+Route::get('/dashboard', 'DashboardController@index');
 
 Auth::routes();
 
