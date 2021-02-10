@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'PagesController@index');
-// Route::get('/about', 'PagesController@about');
+Route::get('/about', 'PagesController@about');
 
 Route::get('/profile', 'UsersController@index');
 Route::get('/users', 'UsersController@showusers');
-
 Route::patch('/users/{id}', 'UsersController@update');
+
+Route::get('/products', 'ProductsController@index');
 
 Route::get('/dashboard', 'DashboardController@index');
 
