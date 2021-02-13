@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
+import Button from './Button';
+import Productforms from './Productforms';
 
 class Addproducts extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            buttonactivate : ''
+        };
+
+        this.toggleHandleClick = this.toggleHandleClick.bind(this);
     }
-    handleClick(e) {
+    toggleHandleClick(evt) {
+        console.log(evt);
         console.log('click button');
+        this.setState({
+            buttonactivate:evt
+        },()=>{
+
+            console.log(this.state.buttonactivate);
+        })
     }
+
+    // toggleHandleClick = (evt) => {
+    //     console.log(evt);
+    //     console.log('click button');
+    //     this.setState({
+    //         buttonactivate:evt
+    //     })
+    // }
     render() {
+        let form
+        if(this.state.buttonactivate){
+            form = <Productforms formType={this.state.buttonactivate}/>
+        }
         return (
             <React.Fragment>
                 <div className="row">
-                    <div className="col-sm-4"><button className="btn btn-primary" onClick={this.handleClick}>Add Products</button></div>
-                    <div className="col-sm-4"><button className="btn btn-primary">Update Products</button></div>
-                    <div className="col-sm-4"><button className="btn btn-primary">Delete Products</button></div>
-                </div>
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card">
-                            <h2>Add your products</h2>
-                            <form className="form-group">
-
-                            </form>
+                    <div className="col-sm-4">
+                        <Button parentAction={this.toggleHandleClick} buttonAction={'Add'}/>
                         </div>
-                    </div>
+                    <div className="col-sm-4">
+                        <Button parentAction={this.toggleHandleClick} buttonAction={'Update'}/>
+                        </div>
+                    <div className="col-sm-4">
+                        <Button parentAction={this.toggleHandleClick} buttonAction={'Delete'}/>
+                        </div>
                 </div>
+                {/* <Productforms formType={this.state.buttonactivate}/> */}
+                {form}
             </React.Fragment>
         );
     }

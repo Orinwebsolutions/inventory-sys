@@ -23,7 +23,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('pages.profile', compact('user'));
+        return view('pages.dashboard');
     }
 
     /**
