@@ -1,58 +1,132 @@
-import React from 'react';
+import React, { Component } from 'react';
+import ReactDOM from "react-dom";
+import axios from 'axios'
 
-const Productforms = (props) => {
-    return ( 
-            <div className="row justify-content-center">
+class Productforms extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            item_title:'',
+            barcode:'',
+            SKU:'',
+            description:'',
+            item_price:'',
+            quantity:'',
+            item_supplier:'',
+            note:'',
+
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(e) {
+        // e.preventDefault()
+        //  const products = {
+        //      item_title: this.state.item_title,
+        //      barcode: this.state.barcode,
+        //      SKU: this.state.SKU
+        // };
+        // axios.post('http://localhost:8000/api/products/', products)
+        //   .then(res => console.log(res.data));
+        // // console.log(`Expense successfully created!`);
+        // // console.log(`Name: ${this.state.name}`);
+        // // console.log(`Amount: ${this.state.amount}`);
+        // // console.log(`Description: ${this.state.description}`);
+        // Swal.fire(
+        //     'Good job!',
+        //     'Expense Added Successfully',
+        //     'success'
+        // )
+    }
+
+    render() { 
+        const {formType} = this.props;
+        return ( 
+            <div className="row justify-content-center something">
                 <div className="col-md-8">
                     <div className="card">
-                        <h2>{props.formType} your products</h2>
-                        <form name="formname">                        
-                            {props.formType}
+                        <form name="formname"  onSubmit={this.onSubmit}>
+                            {formType}                  
                             <div className="form-group">
-                                <label for="item_type">Product type</label>
+                                <label>Product type</label>
                                 <select name="item_type">
                                     <option value="test01">Test01</option>
                                     <option value="test02">Test02</option>
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label for="item_title">Product Title</label>
-                                <input type="text" className="form-control" name="item_title" id="item_title" placeholder="Enter product name"/>
+                                <label>Product Title</label>
+                                <input type="text" 
+                                className="form-control" 
+                                value={this.state.item_title}
+                                onChange={this.titleChange} 
+                                name="item_title" 
+                                placeholder="Enter product name"/>
                             </div>
                             <div className="form-group">
-                                <label for="item_barcode">Product barcode</label>
-                                <input type="text" className="form-control" name="barcode" id="item_barcose" placeholder="Enter product barcode"/>
+                                <label>Product barcode</label>
+                                <input type="text"
+                                 className="form-control" 
+                                 value={this.state.barcode} 
+                                 name="barcode" 
+                                 placeholder="Enter product barcode"
+                                 onChange={this.titleChange} />
                             </div>
                             <div className="form-group">
-                                <label for="item_sku">Product SKU</label>
-                                <input type="text" className="form-control" name="SKU" id="item_sku" placeholder="Enter product SKU"/>
+                                <label>Product SKU</label>
+                                <input type="text" 
+                                className="form-control" 
+                                value={this.state.SKU} 
+                                name="SKU" 
+                                placeholder="Enter product SKU"
+                                onChange={this.titleChange} />
                             </div>
                             <div className="form-group">
-                                <label for="item_description">Product description</label>
-                                <input type="text" className="form-control" name="description" id="item_description" placeholder="Enter product name"/>
+                                <label>Product description</label>
+                                <textarea  
+                                className="form-control" 
+                                name="description" 
+                                value={this.state.description} >                               
+                                </textarea>
                             </div>
                             <div className="form-group">
-                                <label for="item_price">Product price</label>
-                                <input type="text" className="form-control" name="item_price" id="item_price" placeholder="Enter product name"/>
+                                <label>Product price</label>
+                                <input type="text" 
+                                className="form-control" 
+                                value={this.state.item_price} 
+                                name="item_price" 
+                                placeholder="Enter product price"/>
                             </div>
                             <div className="form-group">
-                                <label for="item_quantity">Product quantity</label>
-                                <input type="text" className="form-control" name="quantity" id="item_quantity" placeholder="Enter product name"/>
+                                <label>Product quantity</label>
+                                <input type="text" 
+                                className="form-control" 
+                                value={this.state.quantity} 
+                                name="quantity" 
+                                placeholder="Enter product quantity"/>
                             </div>
                             <div className="form-group">
-                                <label for="item_supplier">Product supplier</label>
-                                <input type="text" className="form-control" name="item_supplier" id="item_title" placeholder="Enter product name"/>
+                                <label>Product supplier</label>
+                                <input type="text" 
+                                className="form-control" 
+                                value={this.state.item_supplier} 
+                                name="item_supplier"  
+                                placeholder="Enter product supplier"/>
                             </div>
                             <div className="form-group">
-                                <label for="item_note">Product note</label>
-                                <input type="text" className="form-control" name="note" id="item_note" placeholder="Enter product name"/>
+                                <label>Product note</label>
+                                <textarea  
+                                className="form-control" 
+                                name="note" value={this.state.note} >
+                                </textarea>
                             </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-     );
+        );
+    }
 }
  
 export default Productforms;

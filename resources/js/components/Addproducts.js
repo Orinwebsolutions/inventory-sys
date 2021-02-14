@@ -48,7 +48,7 @@ class Addproducts extends Component {
                         <Button parentAction={this.toggleHandleClick} buttonAction={'Delete'}/>
                         </div>
                 </div>
-                {/* <Productforms formType={this.state.buttonactivate}/> */}
+                {/* <Productforms/> */}
                 {form}
             </React.Fragment>
         );
