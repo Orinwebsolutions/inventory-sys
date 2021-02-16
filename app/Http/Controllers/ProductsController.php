@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use App\ItemCategory;
 
 class ProductsController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -41,7 +42,23 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $expense = Expense::create($request->all());
+        $request->validate([
+            'item_title' => 'required',
+            'barcode' => 'unique:items,barcode',
+            'SKU' => 'unique:items,SKU',
+            'description' => 'required',
+            'item_price' => 'required',
+            'quantity' => 'required|integer',
+            'item_supplier' => 'required',
+            'categories' => 'required',
+        ]);
+        // $expense = Expense::create($request->all());
+
+        $request = $request->all();
+        return response()->json(['request' => $request]);
+        // return response()->json(['request' => 'Amila']);
+        // return $request;
     }
 
     /**
@@ -87,5 +104,11 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function itemcategories()
+    {
+        $category = ItemCategory::get();
+        return response()->json(['category' => $category]);
     }
 }

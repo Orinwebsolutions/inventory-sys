@@ -22,3 +22,4 @@ Route::post('/products', 'ProductsController@store')->name('products.store');
 // Route::get('/products/{expense}', 'ProductsController@show')->name('products.show');
 // Route::put('/products/{expense}', 'ProductsController@update')->name('products.update');
 // Route::delete('/products/{expense}', 'ProductsController@destory')->name('products.destroy');
+Route::get('/product/categories', 'ProductsController@itemcategories');

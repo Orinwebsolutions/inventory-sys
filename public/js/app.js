@@ -66073,6 +66073,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -66116,26 +66118,62 @@ var Productforms = /*#__PURE__*/function (_Component) {
       item_price: '',
       quantity: '',
       item_supplier: '',
-      note: ''
+      note: '',
+      categories: [],
+      category: ''
     };
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.handleChangeValue = _this.handleChangeValue.bind(_assertThisInitialized(_this));
+    _this.handleSelected = _this.handleSelected.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Productforms, [{
+    key: "handleSelected",
+    value: function handleSelected(e) {
+      this.setState({
+        category: e.target.value
+      });
+    }
+  }, {
+    key: "handleChangeValue",
+    value: function handleChangeValue(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('http://localhost:8000/api/product/categories/').then(function (res) {
+        return _this2.setState({
+          categories: res.data.category
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "onSubmit",
-    value: function onSubmit(e) {// e.preventDefault()
-      //  const products = {
-      //      item_title: this.state.item_title,
-      //      barcode: this.state.barcode,
-      //      SKU: this.state.SKU
-      // };
-      // axios.post('http://localhost:8000/api/products/', products)
-      //   .then(res => console.log(res.data));
-      // // console.log(`Expense successfully created!`);
-      // // console.log(`Name: ${this.state.name}`);
-      // // console.log(`Amount: ${this.state.amount}`);
-      // // console.log(`Description: ${this.state.description}`);
+    value: function onSubmit(e) {
+      e.preventDefault();
+      var products = {
+        item_title: this.state.item_title,
+        barcode: this.state.barcode,
+        SKU: this.state.SKU,
+        description: this.state.description,
+        item_price: this.state.item_price,
+        quantity: this.state.quantity,
+        item_supplier: this.state.item_supplier,
+        note: this.state.note,
+        categories: this.state.category
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('http://localhost:8000/api/products/', products).then(function (res) {
+        return console.log(res.data);
+      }); // console.log(`Expense successfully created!`);
+      // console.log(`Name: ${this.state.name}`);
+      // console.log(`Amount: ${this.state.amount}`);
+      // console.log(`Description: ${this.state.description}`);
       // Swal.fire(
       //     'Good job!',
       //     'Expense Added Successfully',
@@ -66146,6 +66184,16 @@ var Productforms = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var formType = this.props.formType;
+      var _this$state = this.state,
+          item_title = _this$state.item_title,
+          barcode = _this$state.barcode,
+          SKU = _this$state.SKU,
+          description = _this$state.description,
+          item_price = _this$state.item_price,
+          quantity = _this$state.quantity,
+          item_supplier = _this$state.item_supplier,
+          note = _this$state.note,
+          categories = _this$state.categories;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row justify-content-center something"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66158,18 +66206,22 @@ var Productforms = /*#__PURE__*/function (_Component) {
       }, formType, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        name: "item_type"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "test01"
-      }, "Test01"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "test02"
-      }, "Test02"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        name: "item_type",
+        className: "custom-select",
+        onChange: this.handleSelected,
+        required: true
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", null, "Select"), categories.map(function (cat) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: cat.id,
+          value: cat.title
+        }, cat.title);
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.item_title,
-        onChange: this.titleChange,
+        value: item_title,
+        onChange: this.handleChangeValue,
         name: "item_title",
         placeholder: "Enter product name"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -66177,55 +66229,60 @@ var Productforms = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product barcode"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.barcode,
+        value: barcode,
         name: "barcode",
         placeholder: "Enter product barcode",
-        onChange: this.titleChange
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product SKU"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.SKU,
+        value: SKU,
         name: "SKU",
         placeholder: "Enter product SKU",
-        onChange: this.titleChange
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         className: "form-control",
         name: "description",
-        value: this.state.description
+        value: description,
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.item_price,
+        value: item_price,
         name: "item_price",
-        placeholder: "Enter product price"
+        placeholder: "Enter product price",
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product quantity"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.quantity,
+        value: quantity,
         name: "quantity",
-        placeholder: "Enter product quantity"
+        placeholder: "Enter product quantity",
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product supplier"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
-        value: this.state.item_supplier,
+        value: item_supplier,
         name: "item_supplier",
-        placeholder: "Enter product supplier"
+        placeholder: "Enter product supplier",
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product note"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         className: "form-control",
         name: "note",
-        value: this.state.note
+        value: note,
+        onChange: this.handleChangeValue
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         className: "btn btn-primary"
@@ -66258,8 +66315,8 @@ var Productforms = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp-7.2\htdocs\inventory-sys\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\xampp-7.2\htdocs\inventory-sys\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\inventory-sys\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\inventory-sys\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
