@@ -44,19 +44,19 @@ class ProductsController extends Controller
     {
         // $expense = Expense::create($request->all());
         $request->validate([
-            'item_title' => 'required',
-            'barcode' => 'unique:items,barcode',
-            'SKU' => 'unique:items,SKU',
-            'description' => 'required',
-            'item_price' => 'required',
-            'quantity' => 'required|integer',
-            'item_supplier' => 'required',
-            'categories' => 'required',
-        ]);
-        // $expense = Expense::create($request->all());
-
-        $request = $request->all();
-        return response()->json(['request' => $request]);
+                'item_title' => 'required',
+                'barcode' => 'unique:items,barcode',
+                'SKU' => 'unique:items,SKU',
+                'description' => 'required',
+                'item_price' => 'required',
+                'quantity' => 'required|integer',
+                'item_supplier' => 'required',
+                'categories' => 'required',
+            ]);
+            $request = $request->all();
+            // $expense = Expense::create($request->all());
+            
+            return response()->json(['request' => $request]);
         // return response()->json(['request' => 'Amila']);
         // return $request;
     }
@@ -106,9 +106,10 @@ class ProductsController extends Controller
         //
     }
 
-    public function itemcategories()
+    public function getCategories()
     {
         $category = ItemCategory::get();
+        
         return response()->json(['category' => $category]);
     }
 }

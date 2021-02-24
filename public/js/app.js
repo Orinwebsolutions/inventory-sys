@@ -66145,7 +66145,7 @@ var Productforms = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('http://localhost:8000/api/product/categories/').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/product/categories/').then(function (res) {
         return _this2.setState({
           categories: res.data.category
         });
@@ -66168,8 +66168,12 @@ var Productforms = /*#__PURE__*/function (_Component) {
         note: this.state.note,
         categories: this.state.category
       };
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('http://localhost:8000/api/products/', products).then(function (res) {
-        return console.log(res.data);
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/products', products).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (error) {
+        console.log(error.data); // this.setState({
+        //     errors: error.response.data.errors
+        // })
       }); // console.log(`Expense successfully created!`);
       // console.log(`Name: ${this.state.name}`);
       // console.log(`Amount: ${this.state.amount}`);
@@ -66179,6 +66183,22 @@ var Productforms = /*#__PURE__*/function (_Component) {
       //     'Expense Added Successfully',
       //     'success'
       // )
+      // axios.post('/api/tasks', task)
+      // .then(response => {
+      //   // clear form input
+      //   this.setState({
+      //     title: ''
+      //   })
+      //   // add new task to list of tasks
+      //   this.setState(prevState => ({
+      //     tasks: prevState.tasks.concat(response.data)
+      //   }))
+      // })
+      // .catch(error => {
+      //   this.setState({
+      //     errors: error.response.data.errors
+      //   })
+      // })
     }
   }, {
     key: "render",

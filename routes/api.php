@@ -18,8 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/products', 'ProductsController@store')->name('products.store');
+Route::post('/products', 'ProductsController@store');
+// Route::post('/products', 'ProductsController@store')->name('products.store');
 // Route::get('/products/{expense}', 'ProductsController@show')->name('products.show');
 // Route::put('/products/{expense}', 'ProductsController@update')->name('products.update');
 // Route::delete('/products/{expense}', 'ProductsController@destory')->name('products.destroy');
-Route::get('/product/categories', 'ProductsController@itemcategories');
+Route::get('/product/categories', 'ProductsController@getCategories');

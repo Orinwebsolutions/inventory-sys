@@ -33,7 +33,7 @@ class Productforms extends Component {
         });
     }
     componentDidMount(){
-        axios.get('http://localhost:8000/api/product/categories/')
+        axios.get('/api/product/categories/')
         .then(res => 
             this.setState({
                 categories: res.data.category
@@ -57,8 +57,16 @@ class Productforms extends Component {
              note: this.state.note,
              categories: this.state.category,
         };
-        axios.post('http://localhost:8000/api/products/', products)
-          .then(res => console.log(res.data));
+        axios.post('/api/products', products)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(error => {
+            console.log(error.data)
+            // this.setState({
+            //     errors: error.response.data.errors
+            // })
+        })
         // console.log(`Expense successfully created!`);
         // console.log(`Name: ${this.state.name}`);
         // console.log(`Amount: ${this.state.amount}`);
@@ -68,6 +76,24 @@ class Productforms extends Component {
         //     'Expense Added Successfully',
         //     'success'
         // )
+
+
+        // axios.post('/api/tasks', task)
+        // .then(response => {
+        //   // clear form input
+        //   this.setState({
+        //     title: ''
+        //   })
+        //   // add new task to list of tasks
+        //   this.setState(prevState => ({
+        //     tasks: prevState.tasks.concat(response.data)
+        //   }))
+        // })
+        // .catch(error => {
+        //   this.setState({
+        //     errors: error.response.data.errors
+        //   })
+        // })
     }
 
     render() { 
@@ -81,8 +107,10 @@ class Productforms extends Component {
                             {formType}                  
                             <div className="form-group">
                                 <label>Product type</label>
+                                {/* {categories} */}
                                 <select name="item_type" className="custom-select" onChange={this.handleSelected} required>
                                     <option>Select</option>
+                                    
                                 {
                                     categories.map((cat)=>
                                         <option key={cat.id} value={cat.title}>{cat.title}</option>
